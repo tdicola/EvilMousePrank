@@ -10,7 +10,7 @@ Copyright 2014 Tony DiCola (tony@tonydicola.com)
 
 ## Usage
 
--   This ONLY works on an Arduin Yun.  The victim's mouse needs to be plugged
+-   This ONLY works on an Arduino Yun.  The victim's mouse needs to be plugged
     in to the Yun's USB host port (tall vertical one), and the Yun's USB mini
     port plugged in to their computer.  The Yun will intercept the mouse
     movements, manipulate them in nefarious ways, and send the mouse commands
