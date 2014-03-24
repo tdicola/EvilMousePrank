@@ -75,7 +75,18 @@ unsigned long stickyPeriod = 0;
 void setup() {
   // Initialize Serial1, the port which is connected to the Linux processor.  The EvilMousePrank.py 
   // script will send mouse events over Serial1 to the sketch.
+  // NOTE: When the Yun is booting up the Serial connection will be flooded with information from
+  // from the Linux boot process.  To work around this wait 90 seconds, clearing the serial buffer
+  // every second.  This is an ugly hack but unfortunately necessary.  See this thread for more
+  // information:
+  //   http://forum.arduino.cc/index.php?topic=191820.msg1436262#msg1436262
   Serial1.begin(115200);
+  for (int i = 0; i < 90; ++i) {
+    delay(1000);
+    while (Serial1.available() > 0) {
+      Serial1.read();
+    }
+  }
   Mouse.begin();
   // Seed the random number generator with noise.
   randomSeed(analogRead(0));

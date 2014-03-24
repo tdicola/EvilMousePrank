@@ -25,7 +25,6 @@ FIFO_PATH = '/tmp/EvilMousePrank.fifo'
 
 
 if __name__ == '__main__':
-	print('Evil Mouse Prank for Arduino Yun')
 	# Delete the FIFO if it already exists.
 	if os.path.exists(FIFO_PATH):
 		os.remove(FIFO_PATH)
@@ -41,7 +40,6 @@ if __name__ == '__main__':
 	# Set some static state before entering the loop.
 	read_fds = [fifo, device.fd]
 	eventsize = evdev.Event.get_format_size()
-	print('Press Ctrl-C to stop.')
 	try:
 		# Loop endlessly waiting for input from the mouse or FIFO.
 		while True:
@@ -51,7 +49,8 @@ if __name__ == '__main__':
 				# and send them to the ATmega.
 				packet = os.read(fifo, 2)
 				if len(packet) == 2:
-					atmega.write(packet)
+					# First reset the current state, then send the new state.
+					atmega.write('r0' + packet)
 			if device.fd in read:
 				# Mouse has a new event, read and handle it.
 				data = os.read(device.fd, eventsize)
