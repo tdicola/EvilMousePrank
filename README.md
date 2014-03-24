@@ -4,9 +4,9 @@ Torture someone by intercepting their USB mouse communication and manipulating
 it in evil ways like inverting the axes or emulating an old sticky mechanical
 ball mouse!
 
-Copyright 2014 Tony DiCola (tony@tonydicola.com)
+See a video demonstration and explanation of the prank here: https://www.youtube.com/watch?v=XACMdu2bcdE
 
-<iframe width="560" height="315" src="//www.youtube.com/embed/XACMdu2bcdE" frameborder="0" allowfullscreen></iframe>
+Copyright 2014 Tony DiCola (tony@tonydicola.com)
 
 ## Usage
 
