@@ -1,6 +1,7 @@
 // Evil Mouse Prank for Arduino Yun
 // Arduino Yun Sketch
 // Copyright 2014 Tony DiCola (tony@tonydicola.com)
+// Released under an MIT license (http://opensource.org/licenses/MIT)
 
 // Scale factor applied to mouse X axis.  Value of 1 is normal, -1 is inverted.
 char mouseXScale = 1;
