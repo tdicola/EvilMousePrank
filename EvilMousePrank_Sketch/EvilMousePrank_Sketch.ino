@@ -1,57 +1,6 @@
 // Evil Mouse Prank for Arduino Yun
-//
-// Torture someone by intercepting their USB mouse communication and manipulating
-// it in evil ways like inverting the axes or emulating an old sticky mechanical
-// ball mouse!
-//
+// Arduino Yun Sketch
 // Copyright 2014 Tony DiCola (tony@tonydicola.com)
-//
-// Usage:
-//
-//   - This ONLY works on an Arduin Yun.  The victim's mouse needs to be plugged
-//     in to the Yun's USB host port (tall vertical one), and the Yun's USB mini
-//     port plugged in to their computer.  The Yun will intercept the mouse
-//     movements, manipulate them in nefarious ways, and send the mouse commands
-//     to the attached computer.
-//
-//   - This sketch requires some advanced modifications to the Yun.  You will need
-//     to be comfortable logging in to the Yun's command shell and manipulating the
-//     Linux environment.
-//
-//   - You will need to make some modifications to your Yun to deal with a few 
-//     issues with the Yun software:
-//
-//     - Out of the box the Yun doesn't work with USB HID devices because of a bug
-//       in OpenWRT.  Follow the steps by sonnyyu in this thread to enable the 
-//       /dev/input/event1 device:
-//         http://forum.arduino.cc/index.php?topic=207069.msg1641669#msg1641669
-//
-//     - You MUST disable the Yun Bridge library completely so the Serial1 connection
-//       can be used exclusively by the sketch for communication.  Unfortunately the
-//       Bridge library has serious performance problems and is not fast enough to
-//       send mouse events between the Yun's two processors.  Follow this thread to
-//       comment the ttyATH0 line in /etc/inittab file:
-//         http://forum.arduino.cc/index.php?topic=191820.45
-//
-//       When you are done with this sketch, uncomment that line or else the Bridge
-//       library will be unusable in your own sketches.
-//
-//   - Install the PySerial library on the Yun's Linux processor.  Follow this blog
-//     post to install PIP:
-//       http://codybonney.com/installing-pip-on-the-arduino-yun/
-//
-//     Then run the command:
-//       pip install pyserial
-//
-//   - Copy both the EvilMouseYun.py and evdev.py files to an SD card that is
-//     mounted on the Yun (/mnt/sda1).
-//
-//   - Update init script to run EvilMouseYun.py at start up.
-//     When you are done using the prank, remove this init setup.  Alternatively
-//     you can just log in to the Yun and run python EvilMouseYun.py
-//
-//   - Copy pages to /mnt/sda/www to support remote control.
-
 
 // Scale factor applied to mouse X axis.  Value of 1 is normal, -1 is inverted.
 char mouseXScale = 1;
