@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+        <style>
+            body {
+              background-color: #000;
+              padding-top: 50px;
+              padding-bottom: 20px;
+            }
+
+            .jumbotron {
+              background-color: #444;
+            }
+
+            .jumbotron h1 {
+              color: #eee;
+            }
+        </style>
+
+        <!--[if lt IE 9]>
+            <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+            <script>window.html5 || document.write('<script src="js/vendor/html5shiv.js"><\/script>')</script>
+        <![endif]-->
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]--> 
+      <div class="container">
+        <div class="jumbotron">
+          <h1>EVIL MOUSE PRANK</h1>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div>
+              <h3 class="alert alert-danger" id="warning"></h3>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <button type="button" class="btn btn-default btn-block btn-lg" id="invertx">Invert X Axis</button>
+          </div>
+          <div class="col-md-2">
+            <button type="button" class="btn btn-default btn-block btn-lg" id="inverty">Invert Y Axis</button>
+          </div>
+          <div class="col-md-2">
+            <button type="button" class="btn btn-default btn-block btn-lg" id="flipxy">Flip X/Y Axis</button>
+          </div>
+          <div class="col-md-2">
+            <button type="button" class="btn btn-default btn-block btn-lg" id="fliplr">Flip Right/Left Button</button>
+          </div>
+          <div class="col-md-2">
+            <button type="button" class="btn btn-default btn-block btn-lg" id="sticky">Emulate Sticky Ball</button>
+          </div>
+          <div class="col-md-2">
+            <button type="button" class="btn btn-success btn-block btn-lg" id="reset">RESET</button>
+          </div>
+        </div>
+      </div>
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+      <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+      <script>
+      $(document).ready(function() {
+
+        // Change your Arduino address below if it's not arduino.local:
+        var address = 'http://arduino.local/sd/send.py';
+
+        var send = function(command, value) {
+          var data = {'command': command };
+          if (value) {
+            data['value'] = value;
+          }
+          $.post(address, data)
+            .fail(function(jqXHR) {
+              // Show a warning message.
+              console.log(jqXHR);
+              if (jqXHR.responseText) {
+                $('#warning').text('ERROR: ' + jqXHR.responseText);
+              }
+              else {
+                $('#warning').text('ERROR: Request failed to send to Arduino!'); 
+              }
+              $('#warning').show();
+            })
+            .done(function() {
+              // Clear any warning on successful send.
+              $('#warning').hide();
+            });
+        };
+
+        $('#warning').hide();
+
+        $('#invertx').click(function() {
+          send('x');
+        });
+
+        $('#inverty').click(function() {
+          send('y');
+        });
+
+        $('#flipxy').click(function() {
+          send('t');
+        });
+
+        $('#fliplr').click(function() {
+          send('f');
+        });
+
+        $('#sticky').click(function() {
+          send('s');
+        });
+
+        $('#reset').click(function() {
+          send('r');
+        });
+
+      });
+      </script>
+    </body>
+</html>

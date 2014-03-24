@@ -36,8 +36,8 @@ try:
 		quit()
 	# Parse form fields.
 	form = cgi.FieldStorage()
-	command = form.getfirst('command')
-	value = form.getfirst('value', 0)
+	command = form.getvalue('command')
+	value = form.getvalue('value', 0)
 	# Error if no command was specified.
 	if command is None or len(command) != 1:
 		http_response('400 Bad Request', 'Must specify command field with one character!')
@@ -54,7 +54,7 @@ try:
 	# Finish with OK response.
 	http_response('200 OK', 'OK!')
 except Exception as e:
-	http_response('500 Internal Server Error', 'Error: {0}'.format(e))
+	http_response('500 Internal Server Error', str(e))
 finally:
 	# Close the fifo connection if it exists.
 	if fifo is not None and fifo >= 0:
