@@ -73,18 +73,17 @@
       <script>
       $(document).ready(function() {
 
-        // Change your Arduino address below if it's not arduino.local:
-        var address = '/sd/send.py';
-
+        // Function to send a command and value to the Yun.
         var send = function(command, value) {
+          // Build the data for the request.
           var data = {'command': command };
           if (value) {
             data['value'] = value;
           }
-          $.post(address, data)
+          // Make the POST request to send.py on the Yun.
+          $.post('/sd/send.py', data)
             .fail(function(jqXHR) {
-              // Show a warning message.
-              console.log(jqXHR);
+              // Show a warning message if the request fails.
               if (jqXHR.responseText) {
                 $('#warning').text('ERROR: ' + jqXHR.responseText);
               }
