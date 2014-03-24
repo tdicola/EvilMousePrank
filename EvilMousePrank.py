@@ -1,6 +1,9 @@
 # Evil Mouse Prank for Arduino Yun
 # Copyright 2014 Tony DiCola (tony@tonydicola.com)
 # Released under an MIT license (http://opensource.org/licenses/MIT)
+
+# Main python program that reads mouse move events and sends them to the ATmega processor.
+
 import os
 import os.path
 import select
@@ -49,7 +52,7 @@ if __name__ == '__main__':
 				# and send them to the ATmega.
 				packet = os.read(fifo, 2)
 				if len(packet) == 2:
-					# First reset the current state, then send the new state.
+					# First reset the current state, then set the new state.
 					atmega.write('r0' + packet)
 			if device.fd in read:
 				# Mouse has a new event, read and handle it.
